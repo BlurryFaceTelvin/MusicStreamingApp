@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "117942343430",
+    "firebase_url": "https://musicapp-9cc45.firebaseio.com",
+    "project_id": "musicapp-9cc45",
+    "storage_bucket": "musicapp-9cc45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117942343430:android:e551358b37301a61",
+        "android_client_info": {
+          "package_name": "com.example.blurryface.musicstreamingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117942343430-120vnu3hofbvmn7dha0qqie4ov5dsr80.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.blurryface.musicstreamingapp",
+            "certificate_hash": "2e5df5c06e7ae9d9b693770cbb14687a67b41a13"
+          }
+        },
+        {
+          "client_id": "117942343430-t5uqjkpoeacohvtsrdr476js72av2ltb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqhHl5fR8VrWKINWTyxeksrcRqEbQ1GuU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117942343430-t5uqjkpoeacohvtsrdr476js72av2ltb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
