@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -13,11 +14,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -28,6 +27,7 @@ import dmax.dialog.SpotsDialog;
 
 public class MainActivity extends AppCompatActivity {
     TextView startTime,endTime,songTitle,artistTitle;
+    Toolbar toolbar;
     ImageView play,rewind,forward,albumCover;
     MediaPlayer mediaPlayer;
     Uri musicUri,imageUri;
@@ -41,15 +41,13 @@ public class MainActivity extends AppCompatActivity {
     //variables for the seconds of rewind and forward
     private int forwardSeekTime =5*1000;
     private int rewindSeekTime = 5*1000;
-
     private SpotsDialog spotsDialog;
-    private ProgressBar songBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //initialize the widgets
         play = findViewById(R.id.playImage);
         rewind = findViewById(R.id.reverseImage);
@@ -60,25 +58,29 @@ public class MainActivity extends AppCompatActivity {
         endTime = findViewById(R.id.endText);
         artistTitle = findViewById(R.id.artistTextView);
         musicProgress = findViewById(R.id.MusicseekBar);
-        songBar = findViewById(R.id.songprogressBar);
+        //initialise toolabar
+        toolbar = findViewById(R.id.mainToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Playing");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //initialise our mediaPlayer
         mediaPlayer = new MediaPlayer();
         //database
         musicStorage = FirebaseStorage.getInstance().getReference();
         musicInfo = FirebaseDatabase.getInstance().getReference().child("Music");
-        songBar.setVisibility(View.GONE);
+
 
 
         try {
             //gets the music file on firebase
-            musicUri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/musicapp-9cc45.appspot.com/o/Music%2FAnne-Maria%2FThen.mp3?alt=media&token=76006f4e-b12c-4472-b365-b0e56dc5ccef");
+            musicUri = Uri.parse(getIntent().getStringExtra("song"));
             mediaPlayer.setDataSource(MainActivity.this,musicUri);
             mediaPlayer.prepare();
         } catch (IOException e) {
-            Toast.makeText(MainActivity.this,e.getMessage().toString(),Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
         }
         //gets the image file from firebase database
-        imageUri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/musicapp-9cc45.appspot.com/o/Music%2FAnne-Maria%2FCover.jpg?alt=media&token=ad764b39-a58c-4251-b198-e0f2d54c0613");
+        imageUri = Uri.parse(getIntent().getStringExtra("image"));
         Picasso.with(this).load(imageUri).placeholder(R.drawable.defaultimage).into(albumCover);
 
 
@@ -139,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        artistTitle.setText(getIntent().getStringExtra("name"));
+        songTitle.setText(getIntent().getStringExtra("title"));
+        /*
         //get music Information
         musicInfo.addValueEventListener(new ValueEventListener() {
             @Override
@@ -154,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,databaseError.getMessage().toString(),Toast.LENGTH_LONG).show();
             }
         });
+        */
     }
 
     public void playPause(){
@@ -205,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
     }
     */
     //class to run in the background
-    public class  MusicProgress extends AsyncTask<Void, Integer,Void>{
+    public class MusicProgress extends AsyncTask<Void, Integer,Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {

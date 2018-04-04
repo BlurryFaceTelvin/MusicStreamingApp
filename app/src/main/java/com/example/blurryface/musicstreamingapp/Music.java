@@ -5,7 +5,10 @@ package com.example.blurryface.musicstreamingapp;
  */
 
 public class Music {
-    public String artists,title,image;
+    public String artists;
+    public String title;
+    public String image;
+    public String song;
 
     public Music(){
     }
@@ -15,7 +18,13 @@ public class Music {
         this.title = title;
         this.image = thumbImage;
     }
+    public String getSong() {
+        return song;
+    }
 
+    public void setSong(String song) {
+        this.song = song;
+    }
     public String getArtist() {
         return artists;
     }

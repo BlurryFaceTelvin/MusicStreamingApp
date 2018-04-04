@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MusicStreamingApp</string>
+    <string name="information">Information</string>
+    <string name="enter_your_email">Enter Your Email</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="password">password</string>
+    <string name="log_in">Log IN</string>
+    <string name="sign_up_short">Not a Member? Sign Up.</string>
+    <string name="sign_in_short">Already a user? Log In</string>
+    <string name="log_out">Log Out</string>
+    <string name="song_title">Song Title:</string>
 </resources>

@@ -2,25 +2,47 @@ package com.example.lib;
 
 import com.africastalking.AfricasTalking;
 import com.africastalking.Server;
+import com.google.gson.Gson;
 
-import java.io.IOException;
+import java.util.HashMap;
+
+import static spark.Spark.get;
+import static spark.Spark.port;
+import static spark.Spark.post;
+
 
 public class PaymentServer {
     private static final int RPC_PORT = 35897;
+    private static final int HTTP_PORT = 30001;
     public static void main(String[] args){
         System.out.print("Starting.......");
-        AfricasTalking.initialize("sandbox","70d4efd0f7abb9ff0bc87473a9657bddbc1dd8aae5fb6af6512285e06292ad49");
-        Server server = new Server();
+        AfricasTalking.initialize("musix","1412d2e38ef0c7541cec1bdb854fcfd8a0ad2fab924065bfe3965878f6357f1f");
 
+        Server server = new Server();
         try {
             server.startInsecure(RPC_PORT);
-            while (true) {
-                Thread.sleep(30000);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        //set our port
+        port(HTTP_PORT);
+        HashMap<String,String> transactions = new HashMap<>();
+        get("/transaction/status",(request, response) -> {
+
+            return transactions.get("status");
+        });
+        post("/notify",(request, response) -> {
+            Gson gson = new Gson();
+            AfricasTalkingNotification notification = gson.fromJson(request.body(),AfricasTalkingNotification.class);
+            transactions.put("status",notification.status);
+            System.out.println(request.body());
+            return "OK";
+        });
+
     }
+    //model for data
+    static class AfricasTalkingNotification{
+        String status;
+    }
+
 }

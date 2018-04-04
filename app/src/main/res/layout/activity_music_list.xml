@@ -6,11 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.example.blurryface.musicstreamingapp.MusicListActivity">
 
+    <include
+        android:id="@+id/musicListToolbar"
+        layout="@layout/app_toolbar" />
+
     <ProgressBar
         android:id="@+id/musicProgress"
         android:layout_width="wrap_content"
-        android:indeterminate="true"
         android:layout_height="wrap_content"
+        android:indeterminate="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,12 +22,16 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/musicRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="512dp"
+        android:layout_width="368dp"
+        android:layout_height="483dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/musicListToolbar">
 
     </android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>
